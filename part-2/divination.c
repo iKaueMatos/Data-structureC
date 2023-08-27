@@ -6,6 +6,15 @@
 #define SIZE 2
 #define NUMS_TO_GENERATE 1
 
+/*Inicialize game*/
+void divination(int value, const char *name) {
+    printf("***************************\n");
+    printf("Welcome to the game, %s!\n", name);
+    printf("***************************\n");
+    printf("*****Number random is gerador*****\n");
+    comparable(value);
+}
+
 int isNumberEmpty(int number, int sentinel) {
     return number == sentinel;
 }
@@ -24,6 +33,22 @@ int randomNumberGenerator() {
     return EXIT_SUCCESS;
 }
 
+int isValidation(int valueNumberOne, const char *name) {
+    int emptyNumber = -1;
+
+    if (valueNumberOne < 0) {
+        printf("Error number < 0\n");
+        return;
+    }
+
+     if (isNumberEmpty(valueNumberOne, emptyNumber) && isStringEmpty(name)) {
+        printf("Error empty\n");
+        return;
+    }
+
+    divination(valueNumberOne, name);
+}
+
 int comparable(int value) {
     int numberSort = randomNumberGenerator();
 
@@ -38,21 +63,6 @@ int comparable(int value) {
     printf("Your number is the same as the one drawn:%d", value);
 }
 
-/*Inicialize game*/
-void divination(int value, const char *name) {
-    int emptyNumber = -1;
-
-    if (isNumberEmpty(value, emptyNumber) && isStringEmpty(name)) {
-        printf("Error\n");
-        return;
-    }
-
-    printf("***************************\n");
-    printf("Welcome to the game, %s!\n", name);
-    printf("***************************\n");
-    printf("*****Number random is gerador*****\n");
-    comparable(value);
-}
 
 int main() {
     int someNumber;
@@ -62,6 +72,6 @@ int main() {
     scanf("%s", &someName);
     printf("Enter your kick number:");
     scanf("%d", &someNumber);
-    divination(someNumber, someName);
+    isValidation(someNumber, someName);
     return 0;
 }
