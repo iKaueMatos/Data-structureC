@@ -29,6 +29,8 @@ int comparable(int value) {
 
     if (value != numberSort) {
         printf("ERROR\n");
+        printf("his kick was:%d",value);
+        printf("randomly generated number:%d", numberSort);
         return;
     }
 
