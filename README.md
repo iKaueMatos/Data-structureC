@@ -127,18 +127,103 @@ int main() {
 }
 ```
 5. **Merge Sort:** O Merge Sort é um algoritmo de ordenação recursivo que divide a lista em sublistas menores, ordena cada sublista e depois mescla as sublistas ordenadas para obter a lista final ordenada. É um método eficiente e estável, adequado para listas de tamanho moderado.
-6. **Quick Sort:** O Quick Sort é outro algoritmo de ordenação recursivo que seleciona um elemento como "pivot" e rearranja a lista de forma que todos os elementos menores que o pivot estejam à esquerda e os maiores à direita. Esse processo é repetido recursivamente nas sublistas resultantes. O Quick Sort é geralmente rápido e eficiente, mas pode ser afetado pelo pior caso em algumas implementações.
-7. **Heap Sort:** O Heap Sort organiza os elementos como uma estrutura de dados chamada heap, que é uma árvore binária especial. Os elementos são inseridos na heap e, em seguida, removidos um por um na ordem desejada. O Heap Sort é eficiente e tem uma complexidade de tempo previsível, mas pode ser menos intuitivo de implementar do que outros métodos.
-8. **Counting Sort:** O Counting Sort é eficiente quando a faixa de valores a serem ordenados é pequena em relação ao tamanho da lista. Ele conta o número de elementos menores ou iguais a cada valor possível e, em seguida, usa essas contagens para posicionar cada elemento na posição correta na lista ordenada.
-9. **Bucket Sort:** O Bucket Sort é adequado quando os valores a serem ordenados estão uniformemente distribuídos. Ele distribui os elementos em "baldes" com intervalos específicos, ordena cada balde individualmente e, em seguida, combina os baldes ordenados para obter a lista final ordenada.
-10. **Radix Sort:** O Radix Sort ordena os elementos considerando cada dígito individualmente, do dígito menos significativo para o mais significativo. Ele pode ser utilizado para ordenar inteiros, strings ou outros tipos de dados que possam ser decompostos em dígitos.
+
+```c
+   #include <stdio.h>
+
+void merge(int array[], int left, int middle, int right) {
+    int n1 = middle - left + 1;
+    int n2 = right - middle;
+
+    // Criação de arrays temporárias para as subarrays esquerda e direita
+    int leftSubarray[n1], rightSubarray[n2];
+
+    // Copiar os elementos para as arrays temporárias
+    for (int i = 0; i < n1; i++)
+        leftSubarray[i] = array[left + i];
+    for (int j = 0; j < n2; j++)
+        rightSubarray[j] = array[middle + 1 + j];
+
+    // Mesclar as subarrays temporárias de volta na array original
+    int i = 0; // Índice da subarray esquerda
+    int j = 0; // Índice da subarray direita
+    int k = left; // Índice da array final mesclada
+
+    while (i < n1 && j < n2) {
+        if (leftSubarray[i] <= rightSubarray[j]) {
+            array[k] = leftSubarray[i];
+            i++;
+        } else {
+            array[k] = rightSubarray[j];
+            j++;
+        }
+        k++;
+    }
+
+    // Copiar os elementos restantes da subarray esquerda, se houver
+    while (i < n1) {
+        array[k] = leftSubarray[i];
+        i++;
+        k++;
+    }
+
+    // Copiar os elementos restantes da subarray direita, se houver
+    while (j < n2) {
+        array[k] = rightSubarray[j];
+        j++;
+        k++;
+    }
+}
+
+void mergeSort(int array[], int left, int right) {
+    if (left < right) {
+        // Encontrar o meio da array
+        int middle = left + (right - left) / 2;
+
+        // Ordenar a metade esquerda
+        mergeSort(array, left, middle);
+
+        // Ordenar a metade direita
+        mergeSort(array, middle + 1, right);
+
+        // Mesclar as duas metades ordenadas
+        merge(array, left, middle, right);
+    }
+}
+
+void printArray(int array[], int size) {
+    for (int i = 0; i < size; i++)
+        printf("%d ", array[i]);
+    printf("\n");
+}
+
+int main() {
+    int array[] = {12, 11, 13, 5, 6, 7};
+    int arraySize = sizeof(array) / sizeof(array[0]);
+
+    printf("Array original:\n");
+    printArray(array, arraySize);
+
+    mergeSort(array, 0, arraySize - 1);
+
+    printf("\nArray ordenada:\n");
+    printArray(array, arraySize);
+
+    return 0;
+}
+```
+7. **Quick Sort:** O Quick Sort é outro algoritmo de ordenação recursivo que seleciona um elemento como "pivot" e rearranja a lista de forma que todos os elementos menores que o pivot estejam à esquerda e os maiores à direita. Esse processo é repetido recursivamente nas sublistas resultantes. O Quick Sort é geralmente rápido e eficiente, mas pode ser afetado pelo pior caso em algumas implementações.
+8. **Heap Sort:** O Heap Sort organiza os elementos como uma estrutura de dados chamada heap, que é uma árvore binária especial. Os elementos são inseridos na heap e, em seguida, removidos um por um na ordem desejada. O Heap Sort é eficiente e tem uma complexidade de tempo previsível, mas pode ser menos intuitivo de implementar do que outros métodos.
+9. **Counting Sort:** O Counting Sort é eficiente quando a faixa de valores a serem ordenados é pequena em relação ao tamanho da lista. Ele conta o número de elementos menores ou iguais a cada valor possível e, em seguida, usa essas contagens para posicionar cada elemento na posição correta na lista ordenada.
+10. **Bucket Sort:** O Bucket Sort é adequado quando os valores a serem ordenados estão uniformemente distribuídos. Ele distribui os elementos em "baldes" com intervalos específicos, ordena cada balde individualmente e, em seguida, combina os baldes ordenados para obter a lista final ordenada.
+11. **Radix Sort:** O Radix Sort ordena os elementos considerando cada dígito individualmente, do dígito menos significativo para o mais significativo. Ele pode ser utilizado para ordenar inteiros, strings ou outros tipos de dados que possam ser decompostos em dígitos.
 Cada método de ordenação tem suas próprias vantagens e desvantagens, e a escolha do método certo depende do contexto e dos requisitos específicos do problema a ser resolvido. É importante considerar a eficiência e a estabilidade do método, bem como o tamanho dos dados a serem ordenados.
-11. **Tim Sort:** O Tim Sort é uma variação do Merge Sort que visa combinar os benefícios do Merge Sort e do Insertion Sort. Ele divide a lista em blocos pequenos, ordena esses blocos usando o Insertion Sort e, em seguida, mescla os blocos de maneira eficiente usando o Merge Sort. O Tim Sort é usado em várias linguagens de programação modernas devido à sua eficiência e desempenho em muitos casos.
-12. **Shell Sort:** O Shell Sort é uma extensão do Insertion Sort que compara elementos distantes uns dos outros e, gradualmente, reduz o intervalo entre os elementos a serem comparados. Isso ajuda a mover elementos maiores para posições corretas mais rapidamente, melhorando a eficiência do algoritmo em comparação com o simples Insertion Sort.
-13. **Natural Merge Sort:** O Natural Merge Sort é utilizado para ordenar listas que já estão parcialmente ordenadas. Ele identifica as subsequências ordenadas na lista e mescla essas subsequências de forma eficiente, minimizando a quantidade de operações necessárias.
-14. **Ordenação Externa:** Os métodos de ordenação mencionados até agora lidam com listas que podem ser mantidas inteiramente na memória. No entanto, quando se trata de ordenar grandes volumes de dados que não cabem na memória principal, é necessário utilizar algoritmos de ordenação externa. Esses algoritmos, como o External Merge Sort, fazem uso de leituras e gravações em disco para organizar os dados.
-15. **Ordenação Estável vs. Não Estável:** Alguns métodos de ordenação são estáveis, o que significa que eles preservam a ordem relativa dos elementos iguais. Outros métodos não são estáveis, o que significa que a ordem relativa dos elementos iguais pode ser alterada após a ordenação. A estabilidade é importante em certos casos, como quando você precisa ordenar por vários critérios em sequência.
-16. **Escolhendo o Método Adequado:** A escolha do método de ordenação adequado depende das características dos dados a serem ordenados, como tamanho da lista, distribuição dos valores, necessidade de estabilidade e restrições de memória. É importante analisar as propriedades do problema antes de decidir qual método utilizar, buscando o equilíbrio entre eficiência e facilidade de implementação.
+12. **Tim Sort:** O Tim Sort é uma variação do Merge Sort que visa combinar os benefícios do Merge Sort e do Insertion Sort. Ele divide a lista em blocos pequenos, ordena esses blocos usando o Insertion Sort e, em seguida, mescla os blocos de maneira eficiente usando o Merge Sort. O Tim Sort é usado em várias linguagens de programação modernas devido à sua eficiência e desempenho em muitos casos.
+13. **Shell Sort:** O Shell Sort é uma extensão do Insertion Sort que compara elementos distantes uns dos outros e, gradualmente, reduz o intervalo entre os elementos a serem comparados. Isso ajuda a mover elementos maiores para posições corretas mais rapidamente, melhorando a eficiência do algoritmo em comparação com o simples Insertion Sort.
+14. **Natural Merge Sort:** O Natural Merge Sort é utilizado para ordenar listas que já estão parcialmente ordenadas. Ele identifica as subsequências ordenadas na lista e mescla essas subsequências de forma eficiente, minimizando a quantidade de operações necessárias.
+15. **Ordenação Externa:** Os métodos de ordenação mencionados até agora lidam com listas que podem ser mantidas inteiramente na memória. No entanto, quando se trata de ordenar grandes volumes de dados que não cabem na memória principal, é necessário utilizar algoritmos de ordenação externa. Esses algoritmos, como o External Merge Sort, fazem uso de leituras e gravações em disco para organizar os dados.
+16. **Ordenação Estável vs. Não Estável:** Alguns métodos de ordenação são estáveis, o que significa que eles preservam a ordem relativa dos elementos iguais. Outros métodos não são estáveis, o que significa que a ordem relativa dos elementos iguais pode ser alterada após a ordenação. A estabilidade é importante em certos casos, como quando você precisa ordenar por vários critérios em sequência.
+17. **Escolhendo o Método Adequado:** A escolha do método de ordenação adequado depende das características dos dados a serem ordenados, como tamanho da lista, distribuição dos valores, necessidade de estabilidade e restrições de memória. É importante analisar as propriedades do problema antes de decidir qual método utilizar, buscando o equilíbrio entre eficiência e facilidade de implementação.
 Lembre-se de que muitas linguagens de programação já possuem funções ou bibliotecas que implementam esses métodos de ordenação de maneira otimizada, então, em muitos casos, você não precisará implementá-los do zero.
 
 ## Escolhendo um Método
