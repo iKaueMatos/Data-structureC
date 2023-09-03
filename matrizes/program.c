@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <locale.h>
 
-#define NUM_L 5 //4
+#define NUM_L 6 //5
 #define NUM_C 4 //3
 
 int main(int argc, char const *argv[])
