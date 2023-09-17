@@ -21,28 +21,38 @@
             ],
             "preLaunchTask": "build",
             "miDebuggerPath": "/caminho/para/seu/gdb/executável",
-            "setupCommands": [
-                {
-                    "description": "Enable pretty-printing for gdb",
-                    "text": "-enable-pretty-printing",
-                    "ignoreFailures": true
-                }
-            ],
             "logging": {
                 "engineLogging": true,
                 "trace": true
             },
-            "stopAtEntry": false,
             "serverStarted": "Info",
             "filterStderr": false,
             "filterStdout": false,
             "filterProgram": false,
             "filterLaunchDebugInfo": 2,
-            "debuggerRoot": "${workspaceFolder}",
+            "debuggerRoot": "${workspaceFolder}"
+        },
+        {
+            "name": "(gdb) Launch",
+            "type": "cppdbg",
+            "request": "launch",
+            "program": "enter program name, for example ${workspaceFolder}/a.exe",
+            "args": [],
+            "stopAtEntry": false,
+            "cwd": "${fileDirname}",
+            "environment": [],
+            "externalConsole": false,
+            "MIMode": "gdb",
+            "miDebuggerPath": "/path/to/gdb",
             "setupCommands": [
                 {
                     "description": "Enable pretty-printing for gdb",
                     "text": "-enable-pretty-printing",
+                    "ignoreFailures": true
+                },
+                {
+                    "description": "Set Disassembly Flavor to Intel",
+                    "text": "-gdb-set disassembly-flavor intel",
                     "ignoreFailures": true
                 }
             ]
