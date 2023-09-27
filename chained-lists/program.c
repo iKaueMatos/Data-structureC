@@ -8,17 +8,14 @@ struct node
     struct node *pLink;
 };
  
- 
-//Função pra printar o nó na tela.
 void displayLL(struct node *p)
 {
     printf("Mostrando a lista:\n"); 
-    if(p)
-    {
+    if(p) {
         do
         {
             printf(" %d", p->nData);
-            p=p->pLink;
+            p = p->pLink;
         }
         while(p);
     }
@@ -48,8 +45,9 @@ int main(void)
     pNode3->pLink = NULL;
      
     //Mostrando a lista.
-    if(pNode1)  
+    if(pNode1)  {
         displayLL(pNode1);
+    }
   
   return 0;
 }
